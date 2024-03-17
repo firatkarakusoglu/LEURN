@@ -1,5 +1,6 @@
 torch
 pandas
+openpyxl
 openml
 numpy
 scikit-learn
