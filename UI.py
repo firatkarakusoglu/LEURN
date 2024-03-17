@@ -99,7 +99,7 @@ if st.session_state['training_completed'] == True:
     # File uploader for explanation
 
     st.subheader("Explain New Inputs")
-    uploaded_file_to_explain = st.file_uploader("Upload your Excel/CSV file to explain", type=["csv", "xlsx"])
+    uploaded_file_to_explain = st.file_uploader("Upload your Excel/CSV file to explain. Uploaded file should not have the target variable.", type=["csv", "xlsx"])
     print(uploaded_file_to_explain)
     if uploaded_file_to_explain is not None:
         # Reading the uploaded file
