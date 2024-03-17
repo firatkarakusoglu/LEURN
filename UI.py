@@ -63,7 +63,7 @@ if st.button("Train Neural Network"):
     model_trainer = Trainer(model, X_train, X_val, y_train, y_val, lr=lr, batch_size=batch_size, epochs=epochs, problem_type=output_type, verbose=False)
     model_trainer.train()
     #Load best model
-    model.load_state_dict(torch.load('best_model_weights.pth'))
+    model.load_state_dict(model_trainer.best_model)
     #Get performances
     perf_train = model_trainer.evaluate(X_train, y_train)
     perf_val = model_trainer.evaluate(X_val, y_val)

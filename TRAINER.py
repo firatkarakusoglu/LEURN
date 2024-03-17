@@ -9,6 +9,7 @@ from sklearn.metrics import accuracy_score as accuracy
 from sklearn.metrics import roc_auc_score
 from torch.optim.lr_scheduler import StepLR
 import numpy as np 
+import copy
 class Trainer:
     def __init__(self, model, X_train, X_val, y_train, y_val,lr,batch_size,epochs,problem_type,verbose=True):
         self.model = model
@@ -104,7 +105,8 @@ class Trainer:
                     self.encodings=None
                     self.taus=None
                     # torch.save(self.model, 'best_model.pth')
-                    torch.save(self.model.state_dict(), 'best_model_weights.pth')
+                    # torch.save(self.model.state_dict(), 'best_model_weights.pth')
+                    self.best_model=copy.deepcopy(self.model.state_dict())
                     # print("Saving model with best validation loss.")
             
             # Problem type 1: Focus on loss, accuracy, and AUC
@@ -118,7 +120,8 @@ class Trainer:
                     self.encodings=None
                     self.taus=None
                     # torch.save(self.model, 'best_model.pth')
-                    torch.save(self.model.state_dict(), 'best_model_weights.pth')
+                    # torch.save(self.model.state_dict(), 'best_model_weights.pth')
+                    self.best_model=copy.deepcopy(self.model.state_dict())
                     # print("Saving model with best validation ROC AUC.")
             
             # Problem type 2: Focus on loss and accuracy
@@ -132,11 +135,12 @@ class Trainer:
                     self.encodings=None
                     self.taus=None
                     # torch.save(self.model, 'best_model.pth')
-                    torch.save(self.model.state_dict(), 'best_model_weights.pth')
+                    # torch.save(self.model.state_dict(), 'best_model_weights.pth')
+                    self.best_model=copy.deepcopy(self.model.state_dict())
                     # print("Saving model with best validation accuracy.")
             self.scheduler.step()
         # Load best validation model
-        self.model.load_state_dict(torch.load('best_model_weights.pth'))
+        self.model.load_state_dict(self.best_model)
 
         # self.model = torch.load('best_model.pth')
 
